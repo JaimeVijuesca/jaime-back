@@ -1,3 +1,6 @@
 com\example\backend\BackendApplication.class
+com\example\backend\config\SecurityConfig.class
+com\example\backend\config\WebConfig$1.class
 com\example\backend\entity\JobApplication.class
 com\example\backend\entity\User.class
+com\example\backend\config\WebConfig.class
