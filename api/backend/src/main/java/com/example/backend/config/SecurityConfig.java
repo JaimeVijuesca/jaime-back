@@ -20,7 +20,7 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
-                .defaultSuccessUrl("http://localhost:3001/", true)
+                .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
                 .failureUrl("/login?error=true")
             );
         return http.build();

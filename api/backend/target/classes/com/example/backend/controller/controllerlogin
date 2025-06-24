@@ -14,7 +14,7 @@ public class LoginController {
     @GetMapping("/")
     public RedirectView home() {
         // Redirige al frontend después del login exitoso
-        return new RedirectView("http://localhost:3001/");
+        return new RedirectView("https://jaime-bice.vercel.app/");
     }
 
     @GetMapping("/api/user")
