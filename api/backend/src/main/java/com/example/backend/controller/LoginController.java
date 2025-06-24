@@ -14,6 +14,11 @@ public class LoginController {
     @GetMapping("/")
     public RedirectView home() {
         // Redirige al frontend después del login exitoso
+        // tardará un poco en redirigir al frontend
+        // porque el usuario debe ser autenticado primero
+        // y luego redirigido a la página principal del frontend
+
+
         return new RedirectView("https://jaime-bice.vercel.app/");
     }
 
