@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class LoginController {
     
-    @GetMapping("/")
+    @GetMapping("/login")
     public RedirectView home() {
         // Redirige al frontend después del login exitoso
         // tardará un poco en redirigir al frontend
