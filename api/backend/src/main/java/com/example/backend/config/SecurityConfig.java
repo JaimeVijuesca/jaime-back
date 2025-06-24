@@ -17,12 +17,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/health", "/api/**", "/login/**", "/oauth2/**", "/css/**", "/js/**", "/error").permitAll()
                 .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
+                .failureUrl("/login?error=true")
             );
-            // .oauth2Login(oauth2 -> oauth2
-            //     .loginPage("/login")
-            //     .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
-            //     .failureUrl("/login?error=true")
-            // );
         // Configuración para logout
         http.logout(logout -> logout
             .logoutUrl("/logout")
