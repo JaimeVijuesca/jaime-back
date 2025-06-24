@@ -14,8 +14,7 @@ public class LoginController {
     @GetMapping("/")
     public RedirectView home() {
         // Redirige al frontend después del login exitoso
-        // return new RedirectView("https://jaime-bice.vercel.app/");
-        return new RedirectView("http://localhost:3001/"); // Cambia esto a la URL de tu frontend
+        return new RedirectView("https://jaime-bice.vercel.app/");
     }
 
     
@@ -48,6 +47,6 @@ public class LoginController {
     @GetMapping("/logout")
     public RedirectView logout() {
         // Redirige al usuario a la página de inicio después del logout
-        return new RedirectView("http://localhost:3001/"); // Cambia esto a la URL de tu frontend
+        return new RedirectView("https://jaime-bice.vercel.app/"); // Cambia esto a la URL de tu frontend
     }
 }

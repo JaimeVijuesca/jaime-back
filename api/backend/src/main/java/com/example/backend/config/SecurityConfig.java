@@ -20,13 +20,13 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
-                .defaultSuccessUrl("http://localhost:3001", true)
+                .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
                 .failureUrl("/login?error=true")
             );
         // Configuración para logout
         http.logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("http://localhost:3001") // Cambia esto a la URL de tu frontend
+            .logoutSuccessUrl("https://jaime-bice.vercel.app/") // Cambia esto a la URL de tu frontend
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID")
         );
