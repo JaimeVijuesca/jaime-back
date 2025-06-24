@@ -13,7 +13,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    .allowedOrigins("https://jaime-bice.vercel.app/", "http://jaime-bice.vercel.app")
+                    .allowedOrigins("https://jaime-bice.vercel.app", "http://jaime-bice.vercel.app")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                     .allowCredentials(true);
             }
