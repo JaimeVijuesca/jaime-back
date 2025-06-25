@@ -4,16 +4,45 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
+import jakarta.servlet.http.HttpServletRequest; // <-- usa jakarta
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
+
+        OAuth2AuthorizationRequestResolver defaultResolver =
+            new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, "/oauth2/authorization");
+
+        OAuth2AuthorizationRequestResolver customResolver = new OAuth2AuthorizationRequestResolver() {
+            @Override
+            public OAuth2AuthorizationRequest resolve(HttpServletRequest request) {
+                OAuth2AuthorizationRequest original = defaultResolver.resolve(request);
+                if (original == null) return null;
+                return OAuth2AuthorizationRequest.from(original)
+                        .additionalParameters(params -> params.put("prompt", "select_account"))
+                        .build();
+            }
+
+            @Override
+            public OAuth2AuthorizationRequest resolve(HttpServletRequest request, String clientRegistrationId) {
+                OAuth2AuthorizationRequest original = defaultResolver.resolve(request, clientRegistrationId);
+                if (original == null) return null;
+                return OAuth2AuthorizationRequest.from(original)
+                        .additionalParameters(params -> params.put("prompt", "select_account"))
+                        .build();
+            }
+        };
+
         http
-            .cors(org.springframework.security.config.Customizer.withDefaults()) // Habilita CORS
+            .cors(org.springframework.security.config.Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/health", "/api/**", "/login/**", "/oauth2/**", "/css/**", "/js/**", "/error").permitAll()
@@ -21,13 +50,15 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
+                .authorizationEndpoint(authorization -> authorization
+                    .authorizationRequestResolver(customResolver)
+                )
                 .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
                 .failureUrl("/login?error=true")
             );
-        // Configuración para logout
         http.logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("https://jaime-bice.vercel.app/") // Cambia esto a la URL de tu frontend
+            .logoutSuccessUrl("https://jaime-bice.vercel.app/")
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID")
         );

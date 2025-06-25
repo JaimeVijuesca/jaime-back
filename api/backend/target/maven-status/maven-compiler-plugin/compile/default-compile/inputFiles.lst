@@ -3,4 +3,5 @@ D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\exa
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\entity\JobApplication.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\entity\User.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\BackendApplication.java
-D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\controller\CustomErrorController.java
+D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\controller\LoginController.java
+D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\config\SessionConfig.java
