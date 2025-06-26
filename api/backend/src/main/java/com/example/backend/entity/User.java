@@ -10,8 +10,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String googleId;
 
     @Column(nullable = false)
     private String name;
@@ -33,14 +31,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
-    }
+   
 
     public String getName() {
         return name;
