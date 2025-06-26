@@ -1,6 +1,7 @@
 package com.example.backend.config;
 
 import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -10,13 +11,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig {
+
+    @Autowired
+    private FrontendUrlProvider appProperties;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://jaime-bice.vercel.app", "http://jaime-bice.vercel.app")
+                        .allowedOrigins(appProperties.getFrontendUrl())
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }

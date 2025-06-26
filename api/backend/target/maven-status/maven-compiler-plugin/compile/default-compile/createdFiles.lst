@@ -1,6 +1,10 @@
-com\example\backend\config\SessionConfig.class
+com\example\backend\config\SecurityConfig$1.class
+com\example\backend\config\FrontendUrlProvider.class
 com\example\backend\BackendApplication.class
 com\example\backend\config\WebConfig$1.class
 com\example\backend\entity\JobApplication.class
 com\example\backend\entity\User.class
 com\example\backend\config\WebConfig.class
+com\example\backend\controller\LoginController.class
+com\example\backend\config\SessionConfig.class
+com\example\backend\config\SecurityConfig.class

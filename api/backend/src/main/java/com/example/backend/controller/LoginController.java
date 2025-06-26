@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -7,17 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.backend.config.FrontendUrlProvider;
 
 @Controller
 public class LoginController {
-    
+
+    @Autowired
+    private FrontendUrlProvider appProperties;
+
     @GetMapping("/login")
     public RedirectView home() {
         // Redirige al frontend después del login exitoso
         // tardará un poco en redirigir al frontend
         // porque el usuario debe ser autenticado primero
         // y luego redirigido a la página principal del frontend
-        return new RedirectView("https://jaime-bice.vercel.app/");
+        return new RedirectView(appProperties.getFrontendUrl());
     }
 
 
@@ -49,6 +54,6 @@ public class LoginController {
     @GetMapping("/logout")
     public RedirectView logout() {
         // Redirige al usuario a la página de inicio después del logout
-        return new RedirectView("https://jaime-bice.vercel.app/"); // Cambia esto a la URL de tu frontend
+        return new RedirectView(appProperties.getFrontendUrl()); // Cambia esto a la URL de tu frontend
     }
 }

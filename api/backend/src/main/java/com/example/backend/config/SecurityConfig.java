@@ -1,5 +1,6 @@
 package com.example.backend.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,17 +16,26 @@ import jakarta.servlet.http.HttpServletRequest; // <-- usa jakarta
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
 
-        OAuth2AuthorizationRequestResolver defaultResolver =
-            new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, "/oauth2/authorization");
+    @Autowired
+    private FrontendUrlProvider appProperties;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository)
+            throws Exception {
+
+        System.out.println("DEBUG: " + appProperties);
+        System.out.println("DEBUG URL: " + appProperties.getFrontendUrl());
+
+        OAuth2AuthorizationRequestResolver defaultResolver = new DefaultOAuth2AuthorizationRequestResolver(
+                clientRegistrationRepository, "/oauth2/authorization");
 
         OAuth2AuthorizationRequestResolver customResolver = new OAuth2AuthorizationRequestResolver() {
             @Override
             public OAuth2AuthorizationRequest resolve(HttpServletRequest request) {
                 OAuth2AuthorizationRequest original = defaultResolver.resolve(request);
-                if (original == null) return null;
+                if (original == null)
+                    return null;
                 return OAuth2AuthorizationRequest.from(original)
                         .additionalParameters(params -> params.put("prompt", "select_account"))
                         .build();
@@ -34,7 +44,8 @@ public class SecurityConfig {
             @Override
             public OAuth2AuthorizationRequest resolve(HttpServletRequest request, String clientRegistrationId) {
                 OAuth2AuthorizationRequest original = defaultResolver.resolve(request, clientRegistrationId);
-                if (original == null) return null;
+                if (original == null)
+                    return null;
                 return OAuth2AuthorizationRequest.from(original)
                         .additionalParameters(params -> params.put("prompt", "select_account"))
                         .build();
@@ -42,26 +53,24 @@ public class SecurityConfig {
         };
 
         http
-            .cors(org.springframework.security.config.Customizer.withDefaults())
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/health", "/api/**", "/login/**", "/oauth2/**", "/css/**", "/js/**", "/error").permitAll()
-                .anyRequest().authenticated()
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/login")
-                .authorizationEndpoint(authorization -> authorization
-                    .authorizationRequestResolver(customResolver)
-                )
-                .defaultSuccessUrl("https://jaime-bice.vercel.app/", true)
-                .failureUrl("/login?error=true")
-            );
+                .cors(org.springframework.security.config.Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/health", "/api/**", "/login/**", "/oauth2/**", "/css/**", "/js/**",
+                                "/error")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .authorizationEndpoint(authorization -> authorization
+                                .authorizationRequestResolver(customResolver))
+                        .defaultSuccessUrl(appProperties.getFrontendUrl(), true)
+                        .failureUrl("/login?error=true"));
         http.logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("https://jaime-bice.vercel.app/")
-            .invalidateHttpSession(true)
-            .deleteCookies("JSESSIONID")
-        );
+                .logoutUrl("/logout")
+                .logoutSuccessUrl(appProperties.getFrontendUrl())
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID"));
         return http.build();
     }
 }

@@ -50,6 +50,11 @@ backend
    ```
    mvn spring-boot:run
    ```
+5. **Run the application with local**:
+mvn spring-boot:run -Dspring-boot.run.profiles=default 
+
+6. **Run the application with production**
+mvn spring-boot:run -Dspring-boot.run.profiles=prod
 
 ## Usage
 
