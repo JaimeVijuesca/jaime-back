@@ -8,3 +8,4 @@ com\example\backend\config\WebConfig.class
 com\example\backend\controller\LoginController.class
 com\example\backend\config\SessionConfig.class
 com\example\backend\config\SecurityConfig.class
+com\example\backend\dto\JobApplicationRequest.class

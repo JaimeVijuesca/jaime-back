@@ -2,7 +2,9 @@ D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\exa
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\config\WebConfig.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\entity\JobApplication.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\config\FrontendUrlProvider.java
+D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\controller\ControllerCV.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\entity\User.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\BackendApplication.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\controller\LoginController.java
 D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\config\SessionConfig.java
+D:\Desorganizado\Backend-portafolio\jaime-back\api\backend\src\main\java\com\example\backend\dto\JobApplicationRequest.java
