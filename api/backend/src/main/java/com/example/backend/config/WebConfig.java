@@ -16,7 +16,7 @@ public class WebConfig {
     private FrontendUrlProvider appProperties;
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
+    WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -29,7 +29,7 @@ public class WebConfig {
     }
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> cookieProcessorCustomizer() {
+    WebServerFactoryCustomizer<TomcatServletWebServerFactory> cookieProcessorCustomizer() {
         return (factory) -> factory.addContextCustomizers(context -> {
             final Rfc6265CookieProcessor cookieProcessor = new Rfc6265CookieProcessor();
             cookieProcessor.setSameSiteCookies("None");

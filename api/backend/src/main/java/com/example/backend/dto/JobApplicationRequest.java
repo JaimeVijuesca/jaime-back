@@ -1,19 +1,31 @@
 package com.example.backend.dto;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+@Component
 public class JobApplicationRequest {
     private String company;
     private String position;
     private String status;
     private String detailsUrl;
+    private MultipartFile companyLogo;
+
+    // Puedes agregar más campos según sea necesario, como fecha de solicitud,
+    // nombre del solicitante, etc.
 
     // Constructores
-    public JobApplicationRequest() {}
+    public JobApplicationRequest() {
+    }
 
-    public JobApplicationRequest(String company, String position, String status, String detailsUrl) {
+    public JobApplicationRequest(String company, String position, String status, String detailsUrl,
+            MultipartFile companyLogo) {
         this.company = company;
         this.position = position;
         this.status = status;
         this.detailsUrl = detailsUrl;
+        this.companyLogo = companyLogo;
+
     }
 
     // Getters y setters
@@ -49,6 +61,14 @@ public class JobApplicationRequest {
         this.detailsUrl = detailsUrl;
     }
 
+    public MultipartFile getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(MultipartFile companyLogo) {
+        this.companyLogo = companyLogo;
+    }
+
     @Override
     public String toString() {
         return "JobApplicationRequest{" +
@@ -56,6 +76,7 @@ public class JobApplicationRequest {
                 ", position='" + position + '\'' +
                 ", status='" + status + '\'' +
                 ", detailsUrl='" + detailsUrl + '\'' +
+                ", companyLogo='" + companyLogo + '\'' +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.server.CookieSameSiteSupplier;
 @Configuration
 public class SessionConfig {
     @Bean
-    public CookieSameSiteSupplier applicationCookieSameSiteSupplier() {
+    CookieSameSiteSupplier applicationCookieSameSiteSupplier() {
         return CookieSameSiteSupplier.ofNone();
     }
 }

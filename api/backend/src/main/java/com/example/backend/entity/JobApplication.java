@@ -10,11 +10,6 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relación con el usuario que envió el CV
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @Column(nullable = false)
     private String company;
 
@@ -37,14 +32,6 @@ public class JobApplication {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getCompany() {

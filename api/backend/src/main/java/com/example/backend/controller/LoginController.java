@@ -16,16 +16,6 @@ public class LoginController {
     @Autowired
     private FrontendUrlProvider appProperties;
 
-    @GetMapping("/login")
-    public RedirectView home() {
-        // Redirige al frontend después del login exitoso
-        // tardará un poco en redirigir al frontend
-        // porque el usuario debe ser autenticado primero
-        // y luego redirigido a la página principal del frontend
-        return new RedirectView(appProperties.getFrontendUrl());
-    }
-
-
     @GetMapping("/api/user")
     @ResponseBody
     public Object user(@AuthenticationPrincipal OAuth2User principal) {
@@ -33,7 +23,7 @@ public class LoginController {
         // Si no hay usuario autenticado, devuelve un mensaje
         return principal != null ? principal.getAttributes() : "No user authenticated";
     }
-    
+
     @GetMapping("/health")
     @ResponseBody
     public String health() {
@@ -42,7 +32,7 @@ public class LoginController {
         // como conexión a la base de datos, servicios externos, etc.
         return "Backend is running!";
     }
-    
+
     @GetMapping("/api/status")
     @ResponseBody
     public String status() {

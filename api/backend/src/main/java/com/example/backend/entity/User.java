@@ -1,7 +1,7 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "users")
@@ -10,19 +10,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private String providerId; // ID que da Google, GitHub, etc.
 
     @Column(nullable = false)
-    private String name;
+    private String provider; // google, github, etc.
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String pictureUrl;
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
-    private LocalDateTime registeredAt = LocalDateTime.now();
-
-    // Getters y setters
+    private String picture;
 
     public Long getId() {
         return id;
@@ -31,14 +32,21 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-   
 
-    public String getName() {
-        return name;
+    public String getProviderId() {
+        return providerId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     public String getEmail() {
@@ -49,19 +57,23 @@ public class User {
         this.email = email;
     }
 
-    public String getPictureUrl() {
-        return pictureUrl;
+    public String getName() {
+        return name;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public LocalDateTime getRegisteredAt() {
-        return registeredAt;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setRegisteredAt(LocalDateTime registeredAt) {
-        this.registeredAt = registeredAt;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
+
+
+    
+
 }
