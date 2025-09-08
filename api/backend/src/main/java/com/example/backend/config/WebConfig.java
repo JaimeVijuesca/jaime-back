@@ -23,6 +23,7 @@ public class WebConfig {
                 registry.addMapping("/**")
                         .allowedOrigins(appProperties.getFrontendUrl())
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };
