@@ -16,7 +16,13 @@ public class LoginController {
     @Autowired
     private FrontendUrlProvider appProperties;
 
-    
+    @GetMapping("/api/user")
+    @ResponseBody
+    public Object user(@AuthenticationPrincipal OAuth2User principal) {
+        // Devuelve los detalles del usuario autenticado
+        // Si no hay usuario autenticado, devuelve un mensaje
+        return principal != null ? principal.getAttributes() : "No user authenticated";
+    }
 
     @GetMapping("/health")
     @ResponseBody
