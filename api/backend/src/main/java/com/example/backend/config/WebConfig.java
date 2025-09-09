@@ -12,8 +12,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig {
 
-    @Autowired
-    private FrontendUrlProvider appProperties;
+    private final FrontendUrlProvider frontendUrlProvider;
+
+    public WebConfig(FrontendUrlProvider frontendUrlProvider) {
+        this.frontendUrlProvider = frontendUrlProvider;
+    }
 
     @Bean
     WebMvcConfigurer corsConfigurer() {
@@ -21,7 +24,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(appProperties.getFrontendUrl())
+                        .allowedOrigins(frontendUrlProvider.getFrontendUrl())
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

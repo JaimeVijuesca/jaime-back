@@ -5,8 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FrontendUrlProvider {
-    @Value("${app.frontend.url}")
-    private String frontendUrl;
+
+    private final String frontendUrl;
+
+    public FrontendUrlProvider(@Value("${app.frontend.url:http://localhost:3001}") String frontendUrl) {
+        this.frontendUrl = frontendUrl;
+    }
 
     public String getFrontendUrl() {
         return frontendUrl;
