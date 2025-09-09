@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 
@@ -16,32 +13,14 @@ import org.springframework.security.oauth2.client.web.DefaultOAuth2Authorization
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
-
-import org.springframework.security.core.userdetails.User;
-
-
-
 import jakarta.servlet.http.HttpServletRequest; // <-- usa jakarta
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-        @Bean
-        public InMemoryUserDetailsManager userDetailsService() {
-                UserDetails user = User.withUsername("test")
-                                .password(passwordEncoder().encode("1234"))
-                                .roles("USER")
-                                .build();
-                return new InMemoryUserDetailsManager(user);
-        }
-
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
 
         @Autowired
         private FrontendUrlProvider appProperties;
