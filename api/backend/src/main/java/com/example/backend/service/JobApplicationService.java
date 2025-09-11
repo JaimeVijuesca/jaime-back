@@ -4,16 +4,22 @@ import org.springframework.stereotype.Service;
 
 import com.example.backend.dto.JobApplicationRequest;
 import com.example.backend.entity.JobApplication;
+import com.example.backend.entity.User;
 import com.example.backend.repository.JobApplicationRepository;
+import com.example.backend.repository.UserRepository;
 
 @Service
 public class JobApplicationService {
 
     private final JobApplicationRepository jobApplicationRepository;
 
+
+    private final UserRepository userRepository;
+
     // Constructor para inyección de dependencias
-    public JobApplicationService(JobApplicationRepository jobApplicationRepository) {
+    public JobApplicationService(JobApplicationRepository jobApplicationRepository, UserRepository userRepository) {
         this.jobApplicationRepository = jobApplicationRepository;
+        this.userRepository = userRepository;
     }
     // Metodo para enviar la solicitud de empleo
 
@@ -27,6 +33,12 @@ public class JobApplicationService {
             jobApplication.setPosition(request.getPosition());
             jobApplication.setStatus(request.getStatus());
             jobApplication.setDetailsUrl(request.getDetailsUrl());
+
+            User user = userRepository.findByProviderId(request.getUserId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found: " + request.getUserId()));
+
+            jobApplication.setUser(user);
+
             // Aquí puedes agregar la lógica para enviar la solicitud de empleo
             System.out.println("Service is processing job application: " + request);
 

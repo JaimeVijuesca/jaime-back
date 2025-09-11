@@ -1,5 +1,6 @@
 com\example\backend\controller\ControllerCV.class
 com\example\backend\config\SecurityConfig$1.class
+com\example\backend\service\LoginApplicationService.class
 com\example\backend\config\FrontendUrlProvider.class
 com\example\backend\BackendApplication.class
 com\example\backend\repository\JobApplicationRepository.class

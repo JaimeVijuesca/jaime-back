@@ -10,6 +10,7 @@ public class JobApplicationRequest {
     private String status;
     private String detailsUrl;
     private MultipartFile companyLogo;
+    private String userId; // ID del usuario que envía la solicitud
 
     // Puedes agregar más campos según sea necesario, como fecha de solicitud,
     // nombre del solicitante, etc.
@@ -19,12 +20,13 @@ public class JobApplicationRequest {
     }
 
     public JobApplicationRequest(String company, String position, String status, String detailsUrl,
-            MultipartFile companyLogo) {
+            MultipartFile companyLogo, String userId) {
         this.company = company;
         this.position = position;
         this.status = status;
         this.detailsUrl = detailsUrl;
         this.companyLogo = companyLogo;
+        this.userId = userId;
 
     }
 
@@ -67,6 +69,13 @@ public class JobApplicationRequest {
 
     public void setCompanyLogo(MultipartFile companyLogo) {
         this.companyLogo = companyLogo;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

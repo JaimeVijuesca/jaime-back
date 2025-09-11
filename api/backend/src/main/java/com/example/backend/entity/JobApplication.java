@@ -73,4 +73,18 @@ public class JobApplication {
     public void setAppliedAt(LocalDateTime appliedAt) {
         this.appliedAt = appliedAt;
     }
+
+    // Relación con el usuario
+    @ManyToOne 
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+    this.user = user;
+}
 }
