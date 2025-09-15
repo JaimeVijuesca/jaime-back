@@ -63,14 +63,14 @@ public class JobApplicationRequest {
         this.detailsUrl = detailsUrl;
     }
 
-    public MultipartFile getCompanyLogo() {
+    public String getCompanyLogo() {
         return companyLogo;
     }
 
     public void setCompanyLogo(MultipartFile companyLogo) {
         this.companyLogo = companyLogo;
     }
-
+    
     public String getUserId() {
         return userId;
     }

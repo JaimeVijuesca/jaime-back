@@ -21,6 +21,9 @@ public class JobApplication {
 
     private String detailsUrl; // Enlace o imagen para ver más detalles
 
+    @Column
+    private String companyLogo; // URL del logo de la empresa
+
     @Column(nullable = false)
     private LocalDateTime appliedAt = LocalDateTime.now();
 
@@ -75,16 +78,24 @@ public class JobApplication {
     }
 
     // Relación con el usuario
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
-    this.user = user;
-}
+        this.user = user;
+    }
+
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+    
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
+    }
 }

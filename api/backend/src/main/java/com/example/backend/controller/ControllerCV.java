@@ -1,15 +1,18 @@
 package com.example.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.example.backend.dto.JobApplicationRequest;
-import com.example.backend.entity.User;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.entity.JobApplication;
 import com.example.backend.service.JobApplicationService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ControllerCV {
@@ -17,20 +20,12 @@ public class ControllerCV {
     @Autowired
     private JobApplicationService jobApplicationService;
 
-    public ControllerCV(JobApplicationService jobApplicationService, UserRepository userRepository) {
+    public ControllerCV(JobApplicationService jobApplicationService) {
         this.jobApplicationService = jobApplicationService;
-        this.userRepository = userRepository;
+
     }
 
-    private final UserRepository userRepository;
-
-    @GetMapping("/test")
-    @ResponseBody
-    public String getMethodName() {
-        return "success"; // Cambia esto a la URL de tu página de éxito
-    }
-
-    @PostMapping("/add/formCV")
+    @PostMapping("api/add/formCV")
     @ResponseBody
     public String addFormCV(@ModelAttribute JobApplicationRequest jobRequest) {
         // Aquí puedes manejar el formulario enviado desde el frontend
@@ -44,12 +39,19 @@ public class ControllerCV {
         System.out.println("Details URL: " + jobRequest.getDetailsUrl());
         System.out.println("Company Logo: " + jobRequest.getCompanyLogo());
         System.out.println("User ID: " + jobRequest.getUserId());
-       
 
         jobApplicationService.submitJobApplication(jobRequest);
-
 
         return "SUCCESS: Job application submitted";
     }
 
+    // Send the user id to see the offers of the user
+
+    @GetMapping("/cv")
+    @ResponseBody
+    public List<JobApplication> getJobApplicationsForAuthenticatedUser(@AuthenticationPrincipal OidcUser oidcUser) {
+        String providerId = oidcUser.getSubject(); // Este es el Google ID
+        System.out.println("Authenticated user providerId: " + providerId);
+        return jobApplicationService.getJobApplicationsByUserId(providerId);
+    }
 }
