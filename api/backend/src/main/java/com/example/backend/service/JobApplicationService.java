@@ -2,11 +2,9 @@ package com.example.backend.service;
 
 import java.util.List;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.example.backend.dto.JobApplicationRequest;
 import com.example.backend.entity.JobApplication;
@@ -38,8 +36,9 @@ public class JobApplicationService {
             JobApplication jobApplication = new JobApplication();
             jobApplication.setCompany(request.getCompany());
             jobApplication.setPosition(request.getPosition());
-            jobApplication.setStatus(request.getStatus());
-            jobApplication.setCompanyLogo(request.getCompanyLogo());
+            jobApplication.setStatus(request.getStatus());  
+            String logoUrl = request.getCompanyLogo() != null ? request.getCompanyLogo().getOriginalFilename() : null;
+            jobApplication.setCompanyLogo(logoUrl);
             jobApplication.setDetailsUrl(request.getDetailsUrl());
 
             User user = userRepository.findByProviderId(request.getUserId())
