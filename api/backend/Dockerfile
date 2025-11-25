@@ -15,8 +15,8 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copiar JAR compilado
-COPY --from=builder /app/target/*.jar app.jar
+# Copiar el JAR exacto generado
+COPY --from=builder /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Comando para arrancar la app
 CMD ["java", "-jar", "app.jar"]
