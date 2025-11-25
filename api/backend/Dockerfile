@@ -22,4 +22,5 @@ COPY --from=builder /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
 
 # Comando para arrancar la app
-CMD ["java", "-jar", "app.jar"]
+CMD java -jar app.jar 2>&1
+
