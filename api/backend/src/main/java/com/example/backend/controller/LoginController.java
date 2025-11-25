@@ -10,12 +10,15 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.backend.config.FrontendUrlProvider;
 
+import jakarta.transaction.Transactional;
+
 @Controller
 public class LoginController {
 
     @Autowired
     private FrontendUrlProvider appProperties;
 
+    @Transactional
     @GetMapping("/api/user")
     @ResponseBody
     public Object user(@AuthenticationPrincipal OAuth2User principal) {
@@ -41,6 +44,7 @@ public class LoginController {
     }
 
     // Endpoint para logout
+    @Transactional
     @GetMapping("/logout")
     public RedirectView logout() {
         // Redirige al usuario a la página de inicio después del logout
