@@ -1,22 +1,20 @@
-# Etapa de build
+# Build stage
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copiar pom.xml desde backend/
-COPY api/backend/pom.xml .
-RUN mvn dependency:go-offline
+# Copiar pom.xml y src
+COPY pom.xml .
+COPY src ./src
 
-# Copiar código fuente desde backend/src
-COPY api/backend/src ./src
-# Build del proyecto
+# Compilar el proyecto
 RUN mvn clean package -DskipTests
 
-# Etapa de ejecución
+# Runtime stage
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copiar el JAR exacto generado
+# Copiar el JAR generado
 COPY --from=builder /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Comando para arrancar la app
+# Arrancar la app
 CMD ["java", "-jar", "app.jar"]
